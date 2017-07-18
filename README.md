@@ -1,5 +1,4 @@
 # Transcriber: an Android Application
-Repository for Transcriber App.  
 
 ## Overview
 
