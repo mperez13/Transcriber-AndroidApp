@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Transcriber.iml" filepath="$PROJECT_DIR$/Transcriber.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Transcriber-AndroidApp.iml" filepath="$PROJECT_DIR$/Transcriber-AndroidApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
