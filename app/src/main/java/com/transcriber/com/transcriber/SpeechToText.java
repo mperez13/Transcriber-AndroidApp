@@ -6,6 +6,7 @@ import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -54,6 +55,27 @@ public class SpeechToText extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    /**
+     * Redirects to activity selected.
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.tts:
+                Intent j = new Intent(getApplicationContext(), TextToSpeech.class);
+                startActivity(j);
+                return true;
+            case R.id.main:
+                Intent k = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(k);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

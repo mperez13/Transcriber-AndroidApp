@@ -15,6 +15,11 @@
         android:orderInCategory="2"
         app:showAsAction="collapseActionView"/>
 
-    
+
+    <item app:showAsAction="collapseActionView"
+          android:id="@+id/main"
+          android:title="Back to Main Menu"
+          android:orderInCategory="3"
+        />
 
 </menu>

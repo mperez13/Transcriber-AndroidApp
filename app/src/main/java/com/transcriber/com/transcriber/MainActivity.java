@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent j = new Intent(getApplicationContext(), TextToSpeech.class);
                 startActivity(j);
                 return true;
+            case R.id.main:
+                Intent k = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(k);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
