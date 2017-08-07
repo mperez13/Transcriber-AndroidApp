@@ -30,7 +30,10 @@ public class SpeechToText extends AppCompatActivity {
 
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
 
-        btnSpeak.setOnClickListener(new View.OnClickListener() {
+        /*create folder to keep txt files*/
+        createFolder();
+
+        /*btnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -38,17 +41,27 @@ public class SpeechToText extends AppCompatActivity {
                         RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now...");
+                //intent.putExtra("android.speech.extra.GET_AUDIO_FORMAT", "audio/AMR");
+                //intent.putExtra("android.speech.extra.GET_AUDIO", true);
 
                 try{
                     startActivityForResult(intent, RESULT_SPEECH);
                     txtText.setText("");
                 } catch (ActivityNotFoundException a){
                     Toast t = Toast.makeText(getApplicationContext(),
-                            "Opps! Device Does Not Support STT", Toast.LENGTH_LONG);
+                            "Opps! Device Does Not Support Speech Recognition", Toast.LENGTH_LONG);
                     t.show();
                 }
             }
-        });
+        });*/
+    }
+
+    /**
+     * Creates folder to keep text files
+     */
+    public void createFolder(){
+
     }
 
     @Override
