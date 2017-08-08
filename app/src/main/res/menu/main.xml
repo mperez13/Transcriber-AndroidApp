@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context="com.example.android.transcriber.MainActivity">
     <item
         android:title="@string/stt"
         android:id="@+id/stt"
@@ -14,5 +14,11 @@
         android:id="@+id/tts"
         android:orderInCategory="2"
         app:showAsAction="collapseActionView"/>
+    <item
+        android:title="@string/record"
+        android:id="@+id/record"
+        android:orderInCategory="3"
+        app:showAsAction="collapseActionView"/>
+
 
 </menu>
