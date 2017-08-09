@@ -2,10 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:background="@drawable/joy"
-tools:context=".MainActivity"
+tools:context=".TextToSpeech"
 android:layout_width="match_parent"
-android:transitionGroup="true"  android:layout_height="match_parent"
-    >
+android:transitionGroup="true"  android:layout_height="match_parent">
 <EditText
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -49,7 +48,7 @@ android:transitionGroup="true"  android:layout_height="match_parent"
     android:layout_alignEnd="@+id/inputtext"
     android:layout_alignParentBottom="true"
     android:scrollIndicators="bottom|right"
-    android:editable="false" />
+    android:editable="false"/>
 
 <Button
     android:layout_width="wrap_content"
@@ -60,13 +59,13 @@ android:transitionGroup="true"  android:layout_height="match_parent"
     android:layout_below="@+id/inputtext"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="60dp" />
-   <Spinner
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-       android:id="@+id/spinner"
-    android:drawable="@drawable/speak"
-    android:layout_below="@+id/inputtext"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="60dp" />
+   <!--<Spinner-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+       <!--android:id="@+id/spinner"-->
+    <!--android:drawable="@drawable/speak"-->
+    <!--android:layout_below="@+id/inputtext"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginTop="60dp" />-->
 
 </RelativeLayout>

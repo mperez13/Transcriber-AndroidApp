@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,11 +23,11 @@ import java.util.List;
 
 public class Filesinterface extends Activity {
 
-    final static String path = Environment.getExternalStorageDirectory().toString()+"/D";
+    final static String path = Environment.getExternalStorageDirectory().toString()+"/E://ProjectCS5540//Transcriber-AndroidApp//app//src//main//res";
     final static String TAG = Filesinterface.class.getName();
-    List<String> fileName = new ArrayList<String>();
+//    List<String> fileName = new ArrayList<String>();
 // populate above list from your desired path
-    Spinner spinner = (Spinner) findViewById(R.id.spinner);
+//    Spinner spinner = (Spinner) findViewById(R.id.spinner);
 //    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item, filenames);
 //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //spinner.setAdapter(adapter);
@@ -63,7 +61,7 @@ public class Filesinterface extends Activity {
 
     public static boolean saveToFile(String data){
         try {
-            File dir = new File (Environment.getExternalStorageDirectory().getAbsolutePath()+"/D");
+            File dir = new File (Environment.getExternalStorageDirectory().getAbsolutePath()+"/E://ProjectCS5540//Transcriber-AndroidApp//app//src//main//res");
             dir.mkdirs();
             File file_name = new File(dir, "filename");
             if (!file_name.exists())
@@ -87,22 +85,23 @@ public class Filesinterface extends Activity {
 
 
     }
-    public void list(String c)
-    {
-
-        Log.d("Files", "Path: " + path);
-        File directory = new File(path);
-        File[] files = directory.listFiles();
-        Log.d("Files", "Size: "+ files.length);
-        for (int i = 0; i < files.length; i++)
-        {
-            Log.d("Files", "FileName:" + files[i].getName());
-        }
-    }
-    public void openFolder(){
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/D");
-        intent.setDataAndType(uri, "text");
-        startActivity(Intent.createChooser(intent, "Open folder"));
-    }
+//    public void list(String c)
+//    {
+//
+//        Log.d("Files", "Path: " + path);
+//        File directory = new File(path);
+//        File[] files = directory.listFiles();
+//        Log.d("Files", "Size: "+ files.length);
+//        for (int i = 0; i < files.length; i++)
+//        {
+//            Log.d("Files", "FileName:" + files[i].getName());
+//        }
+//    }
+//    public void openFolder()
+//    {
+//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/D");
+//        intent.setDataAndType(uri, "text");
+//        startActivity(Intent.createChooser(intent, "Open folder"));
+//    }
 }
