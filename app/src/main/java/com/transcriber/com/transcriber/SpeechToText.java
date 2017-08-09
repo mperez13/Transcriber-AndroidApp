@@ -21,20 +21,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-<<<<<<< HEAD
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-=======
+
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.transcriber.com.transcriber.data.DBHelper;
 
->>>>>>> 9eac293ce862e1463766a8269aac57c15b99dcf9
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -52,14 +49,11 @@ public class SpeechToText extends AppCompatActivity {
 
     public static StringBuilder tempTextResult;
     private ImageButton btnSpeak;
-<<<<<<< HEAD
-    private ImageButton btnPlay;
-=======
+
     private TextView titleText;
     private Button bSave;
     private Spinner spin;
 
->>>>>>> 9eac293ce862e1463766a8269aac57c15b99dcf9
     private TextView txtText;
     private Long tempFileNameLong;
     final private String audioFileExtension = ".mp3";
@@ -93,9 +87,6 @@ public class SpeechToText extends AppCompatActivity {
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         tempTextResult = new StringBuilder();
 
-        btnPlay = (ImageButton) findViewById(R.id.btnPlay);
-
-
        /* //RECYCLERVIEW
         mRecyclerView. findViewById(R.id.recyclerView); //link to activity_main.xml
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -113,14 +104,7 @@ public class SpeechToText extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
-/*        btnPlay.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                play();
-            }
-        });*/
-=======
+
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,8 +127,6 @@ public class SpeechToText extends AppCompatActivity {
 
             }
         });
-
->>>>>>> 9eac293ce862e1463766a8269aac57c15b99dcf9
     }
 
 
