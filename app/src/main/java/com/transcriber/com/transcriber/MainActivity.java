@@ -71,37 +71,6 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
         rv.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    /**
-     * Creates folder to keep text files
-     */
-    public static void createFolder() {
-
-        /* Folder for the audio*/
-            /* getExternalStorageDirectory Returns the primary shared/external storage directory*/
-        File folderAudio = new File(Environment.getExternalStorageDirectory() + File.separator + "Audio");
-        //Folder for the text
-        File folderText = new File(Environment.getExternalStorageDirectory() + File.separator + "Text");
-
-        //if folders do not exist create them
-        if (!(folderAudio.exists())) {
-                /*mkdirs() - creates dir named by path name; includes parent directories*/
-            folderAudio.mkdirs();
-        }
-        if (!(folderText.exists())) {
-            folderAudio.mkdirs();
-        }
-    }
-    /*check if required permission are granted*/
-    private void checkPermissionGranted(View view){
-        int audio_permission = ContextCompat.checkSelfPermission(getApplicationContext(), RECORD_AUDIO);
-        int storage_permission = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
-        boolean permissions = audio_permission == PackageManager.PERMISSION_GRANTED && storage_permission == PackageManager.PERMISSION_GRANTED;
-
-        if(!permissions){
-            ActivityCompat.requestPermissions(this, new String[]{RECORD_AUDIO, WRITE_EXTERNAL_STORAGE}, 200);
-        }
-    }
-
     @Override
     protected void onStop() {
         super.onStop();
@@ -264,6 +233,36 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+    /**
+     * Creates folder to keep text files
+     */
+    public static void createFolder() {
+
+        /* Folder for the audio*/
+            /* getExternalStorageDirectory Returns the primary shared/external storage directory*/
+        File folderAudio = new File(Environment.getExternalStorageDirectory() + File.separator + "Audio");
+        //Folder for the text
+        File folderText = new File(Environment.getExternalStorageDirectory() + File.separator + "Text");
+
+        //if folders do not exist create them
+        if (!(folderAudio.exists())) {
+                /*mkdirs() - creates dir named by path name; includes parent directories*/
+            folderAudio.mkdirs();
+        }
+        if (!(folderText.exists())) {
+            folderAudio.mkdirs();
+        }
+    }
+    /*check if required permission are granted*/
+    private void checkPermissionGranted(View view){
+        int audio_permission = ContextCompat.checkSelfPermission(getApplicationContext(), RECORD_AUDIO);
+        int storage_permission = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+        boolean permissions = audio_permission == PackageManager.PERMISSION_GRANTED && storage_permission == PackageManager.PERMISSION_GRANTED;
+
+        if(!permissions){
+            ActivityCompat.requestPermissions(this, new String[]{RECORD_AUDIO, WRITE_EXTERNAL_STORAGE}, 200);
         }
     }
 
