@@ -1,4 +1,7 @@
 package com.transcriber.com.transcriber;
+
+import android.content.Intent;
+
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -72,7 +75,43 @@ public class TextToSpeech extends AppCompatActivity {
                 texttoaudioconversion.speak(speaking, android.speech.tts.TextToSpeech.QUEUE_FLUSH, null);
             }
         });
+    }
 
+    public void onPause() {
+        if (texttoaudioconversion == null) {
+            texttoaudioconversion.stop();
+            texttoaudioconversion.shutdown();
+
+        }
+
+        super.onPause();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    /**
+     * Redirects to activity selected.
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.stt:
+                Intent i = new Intent(getApplicationContext(), SpeechToText.class);
+                startActivity(i);
+                return true;
+            case R.id.main:
+                Intent k = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(k);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void onPause() {
@@ -89,7 +128,5 @@ public class TextToSpeech extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
-
-
 }
+
