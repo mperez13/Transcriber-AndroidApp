@@ -1,16 +1,24 @@
 package com.transcriber.com.transcriber;
 
+<<<<<<< HEAD
+
+import android.content.Intent;
+=======
 import android.content.Intent;
 import android.os.Environment;
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+<<<<<<< HEAD
+=======
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
 
 import java.io.File;
 import java.util.Locale;
@@ -75,6 +83,8 @@ public class TextToSpeech extends AppCompatActivity {
         });
 
     }
+<<<<<<< HEAD
+=======
 
     public void onPause() {
         if (texttoaudioconversion == null) {
@@ -85,12 +95,37 @@ public class TextToSpeech extends AppCompatActivity {
 
         super.onPause();
     }
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+<<<<<<< HEAD
+    /**
+     * Redirects to activity selected.
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.stt:
+                Intent i = new Intent(getApplicationContext(), SpeechToText.class);
+                startActivity(i);
+                return true;
+            case R.id.main:
+                Intent k = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(k);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+}
+=======
 
 
 }
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3

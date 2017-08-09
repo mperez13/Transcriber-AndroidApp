@@ -16,5 +16,13 @@
         app:showAsAction="collapseActionView"/>
 
 
+<<<<<<< HEAD
+    <item app:showAsAction="collapseActionView"
+          android:id="@+id/main"
+          android:title="Back to Main Menu"
+          android:orderInCategory="3"
+        />
+=======
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
 
 </menu>

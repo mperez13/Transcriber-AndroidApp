@@ -2,6 +2,14 @@ package com.transcriber.com.transcriber;
 
 import android.content.ContentValues;
 import android.content.Intent;
+<<<<<<< HEAD
+import android.content.pm.PackageManager;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+=======
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
@@ -12,10 +20,23 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+<<<<<<< HEAD
+import android.widget.Toast;
+import android.content.Context;
+
+import java.io.File;
+
+import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "mainActivity";
+=======
 
 import com.transcriber.com.transcriber.data.Contract;
 import com.transcriber.com.transcriber.data.DBHelper;
@@ -32,11 +53,53 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
     private String picked = "all";
 
     // added the missing arguments to the code as well as added methods that were needed
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
 
+    private View view;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
+
+        view = findViewById(R.id.main_view);
+
+        checkPermissionGranted(view);
+        createFolder();
+        Toast.makeText(MainActivity.this, getApplicationContext().getApplicationInfo().dataDir, Toast.LENGTH_LONG).show();
+
+    }
+
+    /**
+     * Creates folder to keep text files
+     */
+    public static void createFolder() {
+
+        /* Folder for the audio*/
+            /* getExternalStorageDirectory Returns the primary shared/external storage directory*/
+        File folderAudio = new File(Environment.getExternalStorageDirectory() + File.separator + "Audio");
+        //Folder for the text
+        File folderText = new File(Environment.getExternalStorageDirectory() + File.separator + "Text");
+
+        //if folders do not exist create them
+        if (!(folderAudio.exists())) {
+                /*mkdirs() - creates dir named by path name; includes parent directories*/
+            folderAudio.mkdirs();
+        }
+        if (!(folderText.exists())) {
+            folderAudio.mkdirs();
+        }
+    }
+    /*check if required permission are granted*/
+    private void checkPermissionGranted(View view){
+        int audio_permission = ContextCompat.checkSelfPermission(getApplicationContext(), RECORD_AUDIO);
+        int storage_permission = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+        boolean permissions = audio_permission == PackageManager.PERMISSION_GRANTED && storage_permission == PackageManager.PERMISSION_GRANTED;
+
+        if(!permissions){
+            ActivityCompat.requestPermissions(this, new String[]{RECORD_AUDIO, WRITE_EXTERNAL_STORAGE}, 200);
+        }
+=======
         Log.d(TAG, "oncreate called in main activity");
         button = (FloatingActionButton) findViewById(R.id.addToDo);
         button.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +112,11 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
         });
         rv = (RecyclerView) findViewById(R.id.recyclerView);
         rv.setLayoutManager(new LinearLayoutManager(this));
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
     }
+
+
+
 
     @Override
     protected void onStop() {
@@ -202,6 +269,24 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
 
     // choosing the desired category
     @Override
+<<<<<<< HEAD
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.stt:
+                Intent i = new Intent(getApplicationContext(), SpeechToText.class);
+                startActivity(i);
+                return true;
+            case R.id.tts:
+                Intent j = new Intent(getApplicationContext(), TextToSpeech.class);
+                startActivity(j);
+                return true;
+            case R.id.main:
+                Intent k = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(k);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+=======
     public boolean onOptionsItemSelected(MenuItem item){
         int clickedItemId = item.getItemId();
 
@@ -227,6 +312,7 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
         } else if(clickedItemId == R.id.stt){
             Intent i = new Intent(getApplicationContext(), SpeechToText.class);
             startActivity(i);
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
         }
 
         return true;

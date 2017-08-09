@@ -4,10 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
+    tools:context="com.transcriber.com.transcriber.MainActivity"
+    android:id="@+id/main_view">
+=======
     android:orientation="vertical"
     android:padding="20dp"
     android:weightSum="1"
     tools:context="com.transcriber.com.transcriber.MainActivity">
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
