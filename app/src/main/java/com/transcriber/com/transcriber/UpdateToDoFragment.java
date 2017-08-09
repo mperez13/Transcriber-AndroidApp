@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -51,7 +50,7 @@ public class UpdateToDoFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_to_do_adder, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_adder, container, false);
         title = (EditText) view.findViewById(R.id.title);
         text = (EditText) view.findViewById(R.id.text);
         add = (Button) view.findViewById(R.id.add);

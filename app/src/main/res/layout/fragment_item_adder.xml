@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="10dp"
     android:weightSum="1"
-    tools:context=".AddToDoFragment">
+    tools:context=".AddItem">
 
     <EditText
         android:id="@+id/title"

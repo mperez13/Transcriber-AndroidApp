@@ -15,7 +15,7 @@ import com.transcriber.com.transcriber.data.Contract;
 
 // added textviews and some information that was missing
 
-public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ItemHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ItemHolder> {
 
     private Cursor cursor;
     private ItemClickListener listener;
@@ -46,7 +46,7 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ItemHo
         void onItemClick(int pos, String title, String text, long id, String category);
     }
 
-    public ToDoListAdapter(Cursor cursor, ItemClickListener listener) {
+    public MyAdapter(Cursor cursor, ItemClickListener listener) {
         this.cursor = cursor;
         this.listener = listener;
     }
