@@ -1,6 +1,13 @@
 <resources>
-    <string name="app_name">Transcriber</string>\
-    <string name="tts">Text To Speak</string>
-    <string name="stt">Speak To Text</string>
-    <string name="speak">Speak</string>
+    <string name="app_name">Erase</string>
+    <string name="tts">Text To Speech</string>
+    <string name="stt">Speech To Text</string>
+    <string-array name="selectedCategory">
+        <item>all</item>
+        <item>school</item>
+        <item>website</item>
+        <item>work</item>
+        <item>art</item>
+    </string-array>
+    <string name="title_activity_text_to_speech">TextToSpeech</string>
 </resources>

@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SpeechToText" />
-        <activity android:name=".TextToSpeech"></activity>
+        <activity android:name=".TextToSpeech" />
+        <activity android:name=".DisplayItem"></activity>
     </application>
 
 </manifest>

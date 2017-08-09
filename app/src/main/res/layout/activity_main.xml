@@ -4,20 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context="com.transcriber.com.transcriber.MainActivity"
     android:id="@+id/main_view">
-
-    <ProgressBar
-        android:id="@+id/progress"
-        android:paddingTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+=======
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:weightSum="1"
+    tools:context="com.transcriber.com.transcriber.MainActivity">
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/recyclerView"
-        android:layout_marginBottom="8dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight=".90" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addToDo"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight=".10"
+        android:text="Add Item"
+        />
 
 </LinearLayout>

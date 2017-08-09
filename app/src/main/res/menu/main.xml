@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context="com.example.android.transcriber.MainActivity">
     <item
         android:title="@string/stt"
         android:id="@+id/stt"
@@ -16,10 +16,13 @@
         app:showAsAction="collapseActionView"/>
 
 
+<<<<<<< HEAD
     <item app:showAsAction="collapseActionView"
           android:id="@+id/main"
           android:title="Back to Main Menu"
           android:orderInCategory="3"
         />
+=======
+>>>>>>> 5ec73b97c00ba814d7ba9af43403a09f48de7fc3
 
 </menu>

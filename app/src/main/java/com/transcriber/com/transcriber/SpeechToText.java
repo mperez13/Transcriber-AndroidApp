@@ -86,6 +86,7 @@ public class SpeechToText extends AppCompatActivity {
                 /* startActivityForResult will start a new activity and expect a result (the audio and text)*/
                 try{
                     startActivityForResult(intent, RESULT_SPEECH);
+                    txtText.setText("");
                 }catch(ActivityNotFoundException e){
                     Toast t = Toast.makeText(getApplicationContext(),
                             "Opps! Device Does Not Support Speech Recognition", Toast.LENGTH_LONG);
@@ -95,6 +96,36 @@ public class SpeechToText extends AppCompatActivity {
         };
         Thread sttThread = new Thread(r);
         sttThread.run();
+    }
+
+    /**
+     * Display All Files
+     */
+    private ArrayList<String> getAllFiles(){
+        try{
+            String audioFilePath = Environment.getExternalStorageDirectory().getPath() + File.separator + "Audio";
+            String textFilePath = Environment.getExternalStorageDirectory().getPath() + File.separator + "Text";
+            Toast.makeText(SpeechToText.this, audioFilePath, Toast.LENGTH_LONG).show();
+
+            File audioFile = new File(audioFilePath);
+            File textFile = new File(textFilePath);
+
+            File audioFileArray[] = audioFile.listFiles();
+            File textFileArray[] = textFile.listFiles();
+
+            /*Add to recyclerview*/
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return audioArrayList;
+    }
+
+
+    public void onPause(){
+        super.onPause();
     }
 
     @Override
@@ -107,15 +138,17 @@ public class SpeechToText extends AppCompatActivity {
                     // array of the recognition results when performing ACTION_RECOGNIZE_SPEECH
                     ArrayList<String> textOutput = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
+                    // Set the directory for the audio
+                    String audio_dir = Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator +"Audio";
+
+                    //Set the directory for the text
+                    String text_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Text";
+
                     // get text; delete any data in tempText first
                     tempTextResult.delete(0,tempTextResult.length());
                     tempTextResult.append(textOutput.get(0));
 
-                    // Set the directory for the audio
-                    String audio_dir = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/Audio";
-
-                    //Set the directory for the text
-                    String text_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Text";
+                    //txtText.setText(tempTextResult);
 
                     // Retrieve Audio and place appropriate folder
                     try{
