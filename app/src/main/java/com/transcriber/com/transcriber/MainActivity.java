@@ -22,13 +22,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.content.Context;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.transcriber.com.transcriber.SpeechToText.tempTextResult;
 
 import com.transcriber.com.transcriber.data.Contract;
 import com.transcriber.com.transcriber.data.DBHelper;
@@ -36,7 +39,8 @@ import com.transcriber.com.transcriber.data.DBHelper;
 public class MainActivity extends AppCompatActivity implements AddToDoFragment.OnDialogCloseListener, UpdateToDoFragment.OnUpdateDialogCloseListener{
 
     private RecyclerView rv;
-    private FloatingActionButton button;
+    //private FloatingActionButton button;
+    private ImageButton btn;
     private DBHelper helper;
     private Cursor cursor;
     private SQLiteDatabase db;
@@ -51,15 +55,18 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         view = findViewById(R.id.main_view);
 
         checkPermissionGranted(view);
         createFolder();
-        Toast.makeText(MainActivity.this, getApplicationContext().getApplicationInfo().dataDir, Toast.LENGTH_LONG).show();
+        // Toast.makeText(MainActivity.this, getApplicationContext().getApplicationInfo().dataDir, Toast.LENGTH_LONG).show();
         Log.d(TAG, "oncreate called in main activity");
-        button = (FloatingActionButton) findViewById(R.id.addToDo);
-        button.setOnClickListener(new View.OnClickListener() {
+        //button = (FloatingActionButton) findViewById(R.id.addToDo);
+        //button.setOnClickListener(new View.OnClickListener() {
+        btn = (ImageButton) findViewById(R.id.addToDo);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
@@ -69,6 +76,37 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
         });
         rv = (RecyclerView) findViewById(R.id.recyclerView);
         rv.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    /**
+     * Creates folder to keep text files
+     */
+    public static void createFolder() {
+
+        /* Folder for the audio*/
+            /* getExternalStorageDirectory Returns the primary shared/external storage directory*/
+        File folderAudio = new File(Environment.getExternalStorageDirectory() + File.separator + "Audio");
+        //Folder for the text
+        File folderText = new File(Environment.getExternalStorageDirectory() + File.separator + "Text");
+
+        //if folders do not exist create them
+        if (!(folderAudio.exists())) {
+                /*mkdirs() - creates dir named by path name; includes parent directories*/
+            folderAudio.mkdirs();
+        }
+        if (!(folderText.exists())) {
+            folderAudio.mkdirs();
+        }
+    }
+    /*check if required permission are granted*/
+    private void checkPermissionGranted(View view){
+        int audio_permission = ContextCompat.checkSelfPermission(getApplicationContext(), RECORD_AUDIO);
+        int storage_permission = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+        boolean permissions = audio_permission == PackageManager.PERMISSION_GRANTED && storage_permission == PackageManager.PERMISSION_GRANTED;
+
+        if(!permissions){
+            ActivityCompat.requestPermissions(this, new String[]{RECORD_AUDIO, WRITE_EXTERNAL_STORAGE}, 200);
+        }
     }
 
     @Override
@@ -236,34 +274,30 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
         }
     }
     /**
-     * Creates folder to keep text files
-     */
-    public static void createFolder() {
-
-        /* Folder for the audio*/
-            /* getExternalStorageDirectory Returns the primary shared/external storage directory*/
-        File folderAudio = new File(Environment.getExternalStorageDirectory() + File.separator + "Audio");
-        //Folder for the text
-        File folderText = new File(Environment.getExternalStorageDirectory() + File.separator + "Text");
-
-        //if folders do not exist create them
-        if (!(folderAudio.exists())) {
-                /*mkdirs() - creates dir named by path name; includes parent directories*/
-            folderAudio.mkdirs();
-        }
-        if (!(folderText.exists())) {
-            folderAudio.mkdirs();
-        }
-    }
-    /*check if required permission are granted*/
-    private void checkPermissionGranted(View view){
-        int audio_permission = ContextCompat.checkSelfPermission(getApplicationContext(), RECORD_AUDIO);
-        int storage_permission = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
-        boolean permissions = audio_permission == PackageManager.PERMISSION_GRANTED && storage_permission == PackageManager.PERMISSION_GRANTED;
-
-        if(!permissions){
-            ActivityCompat.requestPermissions(this, new String[]{RECORD_AUDIO, WRITE_EXTERNAL_STORAGE}, 200);
-        }
-    }
-
+    / Display All Files
+    */
+//    private ArrayList<String> getAllFiles(){
+//        try{
+//            String audioFilePath = Environment.getExternalStorageDirectory().getPath() + File.separator + "Audio";
+//            String textFilePath = Environment.getExternalStorageDirectory().getPath() + File.separator + "Text";
+//            Toast.makeText(MainActivity.this, audioFilePath, Toast.LENGTH_LONG).show();
+//
+//            File audioFile = new File(audioFilePath);
+//            File textFile = new File(textFilePath);
+//
+//            File audioFileArray[] = audioFile.listFiles();
+//            File textFileArray[] = textFile.listFiles();
+//
+//            /*Add to recyclerview*/
+//            for(int i = 0;i < textFileArray.length; i++){
+//                tempTextResult.delete(0,tempTextResult.length());
+//                String textFromFile = textFileArray[i].getName() + textFileExtension;
+//
+//            }
+//
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+//        return audioArrayList;
+//    }
 }

@@ -9,7 +9,10 @@ import android.os.Environment;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+
 
 public class SpeechToText extends AppCompatActivity {
     private static final String TAG = "speechToTextActivity";
@@ -37,6 +41,12 @@ public class SpeechToText extends AppCompatActivity {
 
 
     public ArrayList<String> audioArrayList = new ArrayList<>();
+    public ArrayList<String> textArrayList = new ArrayList<>();
+
+    //recyclerview
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    public LayoutInflater inflater;
 
 
     @Override
@@ -49,6 +59,15 @@ public class SpeechToText extends AppCompatActivity {
         tempTextResult = new StringBuilder();
 
 
+       /* //RECYCLERVIEW
+        mRecyclerView. findViewById(R.id.recyclerView); //link to activity_main.xml
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setHasFixedSize(true);
+
+        // Getting the files to list in recyclerView
+        mAdapter = new RecyclerViewAdapter(getAllFiles());
+        mRecyclerView.setAdapter(mAdapter);
+        refreshRecyclerView();*/
 
         btnSpeak.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -64,6 +83,13 @@ public class SpeechToText extends AppCompatActivity {
         //Toast.makeText(SpeechToText.this, "Recording...", Toast.LENGTH_LONG).show();
         startRecording();
     }
+
+/*    *//**
+     * Refresh the RecyclerView
+     *//*
+    private void refreshRecyclerView(){
+        mAdapter.notifyDataSetChanged();
+    }*/
 
     /**
      * startRecording() - start Recording audio that will stop when user presses stop. Will use Google Speech Recognition API.
@@ -82,11 +108,14 @@ public class SpeechToText extends AppCompatActivity {
 
                 intent.putExtra("android.speech.extra.GET_AUDIO_FORMAT", "audio/AMR");
                 intent.putExtra("android.speech.extra.GET_AUDIO", true);
+                //intent.putExtra("android.speech.extra.DICTATION_MODE", true);
+
 
                 /* startActivityForResult will start a new activity and expect a result (the audio and text)*/
                 try{
                     startActivityForResult(intent, RESULT_SPEECH);
                     txtText.setText("");
+
                 }catch(ActivityNotFoundException e){
                     Toast t = Toast.makeText(getApplicationContext(),
                             "Opps! Device Does Not Support Speech Recognition", Toast.LENGTH_LONG);
@@ -96,31 +125,6 @@ public class SpeechToText extends AppCompatActivity {
         };
         Thread sttThread = new Thread(r);
         sttThread.run();
-    }
-
-    /**
-     * Display All Files
-     */
-    private ArrayList<String> getAllFiles(){
-        try{
-            String audioFilePath = Environment.getExternalStorageDirectory().getPath() + File.separator + "Audio";
-            String textFilePath = Environment.getExternalStorageDirectory().getPath() + File.separator + "Text";
-            Toast.makeText(SpeechToText.this, audioFilePath, Toast.LENGTH_LONG).show();
-
-            File audioFile = new File(audioFilePath);
-            File textFile = new File(textFilePath);
-
-            File audioFileArray[] = audioFile.listFiles();
-            File textFileArray[] = textFile.listFiles();
-
-            /*Add to recyclerview*/
-
-
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return audioArrayList;
     }
 
 
@@ -133,25 +137,25 @@ public class SpeechToText extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch(requestCode){
-            case RESULT_SPEECH:{
-                if(requestCode == RESULT_OK && null != data){
+            case RESULT_SPEECH: {
+                if (resultCode == RESULT_OK && null != data) {
                     // array of the recognition results when performing ACTION_RECOGNIZE_SPEECH
                     ArrayList<String> textOutput = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                     // Set the directory for the audio
-                    String audio_dir = Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator +"Audio";
+                    String audio_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Audio";
 
                     //Set the directory for the text
                     String text_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Text";
 
                     // get text; delete any data in tempText first
-                    tempTextResult.delete(0,tempTextResult.length());
+                    tempTextResult.delete(0, tempTextResult.length());
                     tempTextResult.append(textOutput.get(0));
 
-                    //txtText.setText(tempTextResult);
+                    txtText.setText(tempTextResult);
 
                     // Retrieve Audio and place appropriate folder
-                    try{
+                    try {
                         Uri audioUri = data.getData();
                         ContentResolver contentResolver = getContentResolver();
 
@@ -160,47 +164,49 @@ public class SpeechToText extends AppCompatActivity {
                         String audioFileName = Long.toString(tempFileNameLong) + audioFileExtension;
 
                         //Create file named as stated above
-                        File file = new File(audio_dir, audioFileName);
+                        File audiofileName = new File(audio_dir, audioFileName);
                         InputStream audioFileStream = contentResolver.openInputStream(audioUri);
-                        OutputStream out = new FileOutputStream(file);
+                        OutputStream out = new FileOutputStream(audiofileName);
+                        audioArrayList.add(0, audiofileName + audioFileExtension);
 
-                        try{
-                            byte[] buffer = new byte[4* 1024];
+                        try {
+                            byte[] buffer = new byte[4 * 1024];
                             int read;
-                            while((read = audioFileStream.read(buffer)) != -1){
+                            while ((read = audioFileStream.read(buffer)) != -1) {
                                 out.write(buffer, 0, read);
                             }
                             out.flush();
                             out.close();
-                        }finally {
+                        } finally {
                             out.close();
                             audioFileStream.close();
                         }
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     // Retrieve Text and place appropriate folder
-                    String textFileName = Long.toString(tempFileNameLong) + textFileExtension ;
+                    String textFileName = Long.toString(tempFileNameLong) + textFileExtension;
                     File outputFile = new File(text_dir, textFileName);
 
-                    try{
+                    try {
                         FileOutputStream textFileStream = new FileOutputStream(outputFile);
                         textFileStream.write(textOutput.get(0).getBytes());
                         textFileStream.close();
 
                         String fileName = Long.toString(tempFileNameLong);
-                        audioArrayList.add(0, fileName + audioFileExtension);
+                        textArrayList.add(0, textFileName);
 
                         //refreshRecyclerView();
 
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-            break;
+                break;
             }
         }
+       // Toast.makeText(SpeechToText.this, "yes", Toast.LENGTH_LONG).show();
     }
 
     /**/

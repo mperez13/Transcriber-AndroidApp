@@ -105,4 +105,5 @@ public class Filesinterface extends Activity {
 //        intent.setDataAndType(uri, "text");
 //        startActivity(Intent.createChooser(intent, "Open folder"));
 //    }
+
 }

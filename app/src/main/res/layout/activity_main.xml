@@ -8,10 +8,7 @@
     android:padding="20dp"
     android:weightSum="1"
     tools:context="com.transcriber.com.transcriber.MainActivity"
-    android:id="@+id/main_view">
-
-
-
+  android:id="@+id/main_view"  >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
