@@ -19,17 +19,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by Mounika on 8/8/2017.
- */
-
-
 public class Filesinterface extends Activity {
 
     final static String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ProjectCS5540/Transcriber-AndroidApp";
     final static String TAG = Filesinterface.class.getName();
 
     //    List<String> fileName = new ArrayList<String>();
+
 // populate above list from your desired path
 //    Spinner spinner = (Spinner) findViewById(R.id.spinner);
 //    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item, filenames);
@@ -107,3 +103,4 @@ public class Filesinterface extends Activity {
 //        startActivity(Intent.createChooser(intent, "Open folder"));
 //    }
 }
+

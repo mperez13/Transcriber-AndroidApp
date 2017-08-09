@@ -1,6 +1,8 @@
 package com.transcriber.com.transcriber;
 
+
 import android.content.Context;
+
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -106,7 +108,6 @@ public class TextToSpeech extends AppCompatActivity {
                 texttoaudioconversion.speak(speaking, android.speech.tts.TextToSpeech.QUEUE_FLUSH, null);
             }
         });
-
     }
 
     private List<String> readSDCard() {
@@ -145,5 +146,30 @@ public class TextToSpeech extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Redirects to activity selected.
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.stt:
+                Intent i = new Intent(getApplicationContext(), SpeechToText.class);
+                startActivity(i);
+                return true;
+            case R.id.main:
+                Intent k = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(k);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
+    public void onPause() {
+        if (texttoaudioconversion == null) {
+            texttoaudioconversion.stop();
+            texttoaudioconversion.shutdown();
 }
+
