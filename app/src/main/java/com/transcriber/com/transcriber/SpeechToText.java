@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.speech.RecognizerIntent;
@@ -17,14 +18,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.logging.Handler;
 
 
 public class SpeechToText extends AppCompatActivity {
@@ -34,6 +40,7 @@ public class SpeechToText extends AppCompatActivity {
 
     public static StringBuilder tempTextResult;
     private ImageButton btnSpeak;
+    private ImageButton btnPlay;
     private TextView txtText;
     private Long tempFileNameLong;
     final private String audioFileExtension = ".mp3";
@@ -58,6 +65,8 @@ public class SpeechToText extends AppCompatActivity {
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         tempTextResult = new StringBuilder();
 
+        btnPlay = (ImageButton) findViewById(R.id.btnPlay);
+
 
        /* //RECYCLERVIEW
         mRecyclerView. findViewById(R.id.recyclerView); //link to activity_main.xml
@@ -76,7 +85,16 @@ public class SpeechToText extends AppCompatActivity {
             }
         });
 
+/*        btnPlay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                play();
+            }
+        });*/
     }
+
+
+
     // when the speak button is clicked
     public void speakButtonOnClick(View view) {
         Log.i(TAG, "Record Button Touched");
@@ -143,10 +161,10 @@ public class SpeechToText extends AppCompatActivity {
                     ArrayList<String> textOutput = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                     // Set the directory for the audio
-                    String audio_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Audio";
+                    String audio_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "ProjectCS5540/Transcriber-AndroidApp/Audio";
 
                     //Set the directory for the text
-                    String text_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Text";
+                    String text_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "/ProjectCS5540/Transcriber-AndroidApp/Text";
 
                     // get text; delete any data in tempText first
                     tempTextResult.delete(0, tempTextResult.length());

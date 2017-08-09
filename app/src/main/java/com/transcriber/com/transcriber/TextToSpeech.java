@@ -38,7 +38,7 @@ public class TextToSpeech extends AppCompatActivity {
     private LinearLayoutManager llm;
     ListAdapter listAdapter;
     Context context;
-    final static String path = Environment.getExternalStorageDirectory().toString() + "/ProjectCS5540/Transcriber-AndroidApp/";
+    final static String path = Environment.getExternalStorageDirectory().toString() + "/ProjectCS5540/Transcriber-AndroidApp/Text";
     android.speech.tts.TextToSpeech texttoaudioconversion;
 
     @Override
@@ -70,7 +70,7 @@ public class TextToSpeech extends AppCompatActivity {
             public void onClick(View view) {
                 List<String> list = readSDCard();
                 if (list != null && list.size() > 0) {
-                    listAdapter = new ListAdapter(context, list,texttoaudioconversion);
+                    listAdapter = new ListAdapter(context, list, texttoaudioconversion);
                     recyclerView.setAdapter(listAdapter);
                 } else {
                     Toast.makeText(context, "No text files exited in " + path, Toast.LENGTH_LONG).show();
@@ -118,7 +118,7 @@ public class TextToSpeech extends AppCompatActivity {
         File[] files = f.listFiles();
 
         if (files != null) {
-            Log.e("Files  ",files.length+"");
+            Log.e("Files  ", files.length + "");
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
       /*It's assumed that all file in the path are in supported type*/
@@ -148,6 +148,7 @@ public class TextToSpeech extends AppCompatActivity {
 
     /**
      * Redirects to activity selected.
+     *
      * @param item
      * @return
      */
@@ -167,9 +168,4 @@ public class TextToSpeech extends AppCompatActivity {
         }
     }
 
-    public void onPause() {
-        if (texttoaudioconversion == null) {
-            texttoaudioconversion.stop();
-            texttoaudioconversion.shutdown();
 }
-
