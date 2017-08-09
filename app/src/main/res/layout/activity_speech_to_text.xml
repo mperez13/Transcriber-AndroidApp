@@ -22,7 +22,7 @@
         android:layout_margin="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:contentDescription="@string/speak"
+        android:contentDescription="Speak"
         android:src="@android:drawable/ic_btn_speak_now" />
 
 </LinearLayout>
