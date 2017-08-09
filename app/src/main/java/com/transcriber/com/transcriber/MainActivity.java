@@ -11,10 +11,7 @@ import android.os.Bundle;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -23,20 +20,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
-import android.content.Context;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static com.transcriber.com.transcriber.SpeechToText.tempTextResult;
 
 import com.transcriber.com.transcriber.data.Contract;
 import com.transcriber.com.transcriber.data.DBHelper;
 
-public class MainActivity extends AppCompatActivity implements AddToDoFragment.OnDialogCloseListener, UpdateToDoFragment.OnUpdateDialogCloseListener{
+public class MainActivity extends AppCompatActivity implements AddItem.OnDialogCloseListener, UpdateToDoFragment.OnUpdateDialogCloseListener{
 
     private RecyclerView rv;
     //private FloatingActionButton button;
@@ -44,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
     private DBHelper helper;
     private Cursor cursor;
     private SQLiteDatabase db;
-    ToDoListAdapter adapter;
+    MyAdapter adapter;
     private final String TAG = "mainactivity";
     private String picked = "all";
 
@@ -69,9 +62,8 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getSupportFragmentManager();
-                AddToDoFragment frag = new AddToDoFragment();
-                frag.show(fm, "addtodofragment");
+                Intent i = new Intent(getApplicationContext(), SpeechToText.class);
+                startActivity(i);
             }
         });
         rv = (RecyclerView) findViewById(R.id.recyclerView);
@@ -130,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
             cursor = getCategoryItems(db);
         }
 
-        adapter = new ToDoListAdapter(cursor, new ToDoListAdapter.ItemClickListener() {
+        adapter = new MyAdapter(cursor, new MyAdapter.ItemClickListener() {
 
             @Override
             public void onItemClick(int pos, String title, String text, long id, String category) {

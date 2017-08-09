@@ -15,7 +15,7 @@ import static android.R.attr.id;
 
 
 // added a spinner as well as a arguments needed
-public class AddToDoFragment extends DialogFragment {
+public class AddItem extends DialogFragment {
 
     private EditText etTitle;
     private EditText etText;
@@ -23,7 +23,7 @@ public class AddToDoFragment extends DialogFragment {
     private final String TAG = "addtodofragment";
     private Spinner spin;
 
-    public AddToDoFragment() {
+    public AddItem() {
     }
 
     //To have a way for the activity to get the data from the dialog
@@ -33,7 +33,7 @@ public class AddToDoFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_to_do_adder, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_adder, container, false);
         // adding a spinner to choose a category
         spin = (Spinner) view.findViewById(R.id.sCategory);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.selectedCategory, android.R.layout.simple_spinner_item);
@@ -53,7 +53,7 @@ public class AddToDoFragment extends DialogFragment {
                 OnDialogCloseListener activity = (OnDialogCloseListener) getActivity();
                 Log.d(TAG, "id: " + id);
                 activity.closeDialog(etTitle.getText().toString(), etText.getText().toString(), id, spin.getSelectedItem().toString());
-                AddToDoFragment.this.dismiss();
+                AddItem.this.dismiss();
             }
         });
 
