@@ -6,19 +6,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.transcriber.com.transcriber.SpeechToText">
-    <TextView
-        android:id="@+id/txtText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:hint="Enter a Title"
+        android:layout_gravity="center"
+        />
+
+    <Spinner
+        android:id="@+id/sCategory"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:layout_marginBottom="80dp"
+        />
 
     <ImageButton
         android:id="@+id/btnSpeak"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="10dp"
+        android:layout_marginBottom="15dp"
+        android:src="@android:drawable/ic_btn_speak_now"/>
+
+    <TextView
+        android:id="@+id/txtText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_margin="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
@@ -33,5 +51,15 @@
         android:layout_marginTop="10dp"
         android:contentDescription="Play"
         android:src="@android:drawable/ic_btn_speak_now" />
+=======
+
+        android:textAppearance="?android:attr/textAppearance"/>
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:text="Save"
+        android:layout_height="100dp" />
+>>>>>>> 9eac293ce862e1463766a8269aac57c15b99dcf9
 
 </LinearLayout>

@@ -167,5 +167,8 @@ public class TextToSpeech extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9eac293ce862e1463766a8269aac57c15b99dcf9
 }

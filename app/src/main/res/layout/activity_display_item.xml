@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,32 +7,65 @@
     tools:context="com.transcriber.com.transcriber.DisplayItem">
 
     <EditText
-        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:text="title"/>
+        android:layout_height="100dp"
+        android:id="@+id/title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="23dp"
         android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="text"/>
+        android:layout_below="@+id/title"
+        android:layout_alignParentEnd="true" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="Play"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="Pause"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="save"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="Send"/>
+        android:id="@+id/play"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@android:drawable/ic_media_play"
+        android:backgroundTint="@android:color/holo_green_dark" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/pause"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="21dp"
+        android:layout_toEndOf="@+id/play"
+        android:background="@android:drawable/ic_media_pause"
+        android:backgroundTint="@android:color/holo_green_dark" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="18dp"
+        android:layout_toStartOf="@+id/send"
+        android:background="@android:drawable/ic_menu_save"
+        android:backgroundTint="@android:color/holo_green_dark" />
+
+    <Button
+        android:id="@+id/send"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:background="@android:drawable/ic_menu_send"
+        android:backgroundTint="@android:color/holo_green_dark" />
+
+    <Spinner
+        android:id="@+id/sCategory"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text"
+        android:layout_marginTop="47dp" />
+
+
+</RelativeLayout>
