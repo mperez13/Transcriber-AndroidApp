@@ -3,6 +3,7 @@ package com.transcriber.com.transcriber;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
 import android.speech.RecognizerIntent;
@@ -23,18 +24,19 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class SpeechToText extends AppCompatActivity {
-    private static final String TAG = "speechToText";
+    private static final String TAG = "speechToTextActivity";
     protected static final int RESULT_SPEECH = 1;
+    public SharedPreferences sharedPreferences;
+
     public static StringBuilder tempTextResult;
-
-
     private ImageButton btnSpeak;
     private TextView txtText;
     private Long tempFileNameLong;
     final private String audioFileExtension = ".mp3";
     final private String textFileExtension = ".mp3.txt";
-    public ArrayList<String> audioArrayList = new ArrayList<>();
 
+
+    public ArrayList<String> audioArrayList = new ArrayList<>();
 
 
     @Override
@@ -46,6 +48,8 @@ public class SpeechToText extends AppCompatActivity {
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         tempTextResult = new StringBuilder();
 
+
+
         btnSpeak.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -56,31 +60,9 @@ public class SpeechToText extends AppCompatActivity {
     }
     // when the speak button is clicked
     public void speakButtonOnClick(View view) {
-        Log.i("ROUNDBUTTON", "RECORD BUTTON TOUCHED");
-        Toast.makeText(SpeechToText.this, "Recording...", Toast.LENGTH_LONG).show();
+        Log.i(TAG, "Record Button Touched");
+        //Toast.makeText(SpeechToText.this, "Recording...", Toast.LENGTH_LONG).show();
         startRecording();
-    }
-    /**
-     * Creates folder to keep text files
-     */
-    private void createFolder(){
-        // Folder for the audio
-        /* getExternalStorageDirectory Returns the primary shared/external storage directory*/
-        File folderAudio = new File(Environment.getExternalStorageDirectory() + File.separator + "Audio");
-        //Folder for the text
-        File folderText = new File(Environment.getExternalStorageDirectory() + File.separator + "Text");
-
-        //if folders do not exist create them
-        if(!(folderAudio.exists())){
-            /*mkdirs() - creates dir named by path name; includes parent directories*/
-            folderAudio.mkdirs();
-            Log.d(TAG +"Audio Dir", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Audio");
-        }
-        if(!(folderText.exists())){
-            folderAudio.mkdirs();
-            Log.d(TAG +"Text Dir", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Text");
-        }
-
     }
 
     /**
@@ -88,9 +70,11 @@ public class SpeechToText extends AppCompatActivity {
      *
      */
     private void startRecording(){
+        //Toast.makeText(SpeechToText.this, "startRecording()", Toast.LENGTH_LONG).show();
         Runnable r = new Runnable() {
             @Override
             public void run() {
+                //Toast.makeText(SpeechToText.this, "speech to text run", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(
                         RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
@@ -109,7 +93,8 @@ public class SpeechToText extends AppCompatActivity {
                 }
             }
         };
-        Thread spechToTextThread = new Thread(r);
+        Thread sttThread = new Thread(r);
+        sttThread.run();
     }
 
     @Override
@@ -118,20 +103,19 @@ public class SpeechToText extends AppCompatActivity {
 
         switch(requestCode){
             case RESULT_SPEECH:{
-                if(requestCode == RESULT_OK && data != null){
+                if(requestCode == RESULT_OK && null != data){
                     // array of the recognition results when performing ACTION_RECOGNIZE_SPEECH
                     ArrayList<String> textOutput = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.i(TAG + "Text Ouput", textOutput.get(0));
 
                     // get text; delete any data in tempText first
                     tempTextResult.delete(0,tempTextResult.length());
                     tempTextResult.append(textOutput.get(0));
 
                     // Set the directory for the audio
-                    String audio_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Audio";
+                    String audio_dir = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/Audio";
 
                     //Set the directory for the text
-                    String text_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Text";
+                    String text_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Text";
 
                     // Retrieve Audio and place appropriate folder
                     try{
@@ -172,7 +156,6 @@ public class SpeechToText extends AppCompatActivity {
                         textFileStream.write(textOutput.get(0).getBytes());
                         textFileStream.close();
 
-                        // Add array of Audio files to recyclerView
                         String fileName = Long.toString(tempFileNameLong);
                         audioArrayList.add(0, fileName + audioFileExtension);
 
@@ -181,8 +164,8 @@ public class SpeechToText extends AppCompatActivity {
                     }catch(Exception e){
                         e.printStackTrace();
                     }
-
                 }
+            break;
             }
         }
     }
