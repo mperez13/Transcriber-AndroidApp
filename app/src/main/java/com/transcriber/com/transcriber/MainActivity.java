@@ -144,6 +144,10 @@ public class MainActivity extends AppCompatActivity implements AddToDoFragment.O
                 Intent intent = new Intent(getBaseContext(), DisplayItem.class);
                 intent.putExtra("TITLE", title);
                 intent.putExtra("TEXT", text);
+                String sid = Long.toString(id);
+                intent.putExtra("ID", sid);
+
+                intent.putExtra("CAT", category);
                 startActivity(intent);
             }
         });

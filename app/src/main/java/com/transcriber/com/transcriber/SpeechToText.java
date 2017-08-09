@@ -16,9 +16,15 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.transcriber.com.transcriber.data.DBHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,6 +40,10 @@ public class SpeechToText extends AppCompatActivity {
 
     public static StringBuilder tempTextResult;
     private ImageButton btnSpeak;
+    private TextView titleText;
+    private Button bSave;
+    private Spinner spin;
+
     private TextView txtText;
     private Long tempFileNameLong;
     final private String audioFileExtension = ".mp3";
@@ -54,7 +64,16 @@ public class SpeechToText extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_to_text);
 
+        titleText = (EditText) findViewById(R.id.titleText);
+
         txtText = (TextView) findViewById(R.id.txtText);
+        bSave  = (Button) findViewById(R.id.save);
+
+        spin = (Spinner) findViewById(R.id.sCategory);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.selectedCategory, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(adapter);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         tempTextResult = new StringBuilder();
 
@@ -73,6 +92,29 @@ public class SpeechToText extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 speakButtonOnClick(v);
+            }
+        });
+
+        bSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DBHelper helper = new DBHelper(getBaseContext());
+
+                String title = titleText.getText().toString();
+                String text = txtText.getText().toString();
+                String categoy = spin.getSelectedItem().toString();
+
+                helper.insertItem(title, text, categoy);
+
+                Toast t = Toast.makeText(getApplicationContext(),
+                        "Your Transcription Has Been Added", Toast.LENGTH_LONG);
+                t.show();
+
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(intent);
+
+
             }
         });
 
